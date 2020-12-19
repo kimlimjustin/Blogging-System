@@ -11,6 +11,23 @@ const generateToken = () => {
     return randomToken(50);
 }
 
+router.post('/get_by_token/', (req, res) => {
+    const key = req.body.SECURITY_KEY;
+    if(key != SECURITY_KEY) res.status(403).json("Permission denied.")
+    else{
+        User.findOne({token: req.body.token}, (err, user) => {
+            if(err)res.status(500).json("Error: "+err);
+            else if(!user) res.status(404).json("User not found.")
+            else{
+                user.token = generateToken();
+                user.save()
+                .then(() => res.json(user))
+                .catch(err => res.status(500).json("Error: "+err));
+            }
+        })
+    }
+})
+
 router.post('/register', jsonParser, (req, res) => {
     const {name, password, email} = req.body;
     User.findOne({email}, (err, user) => {
@@ -42,7 +59,7 @@ router.post('/login', jsonParser, (req, res) => {
                     user.save()
                     res.json({"message": "Success", token});
                 }
-                else res.status(400).jsonn("Password doesn't match")
+                else res.status(400).json("Password doesn't match")
             })
         }
     })
