@@ -1,0 +1,9 @@
+.margin-top-bottom{
+    margin: 40px 0;
+}
+.link{
+    color: inherit;
+}
+.link:hover{
+    opacity: .7;
+}
