@@ -1,5 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import getUserByToken from "../Lib/getUserByToken";
 
@@ -47,7 +48,7 @@ const Login = () => {
                     <input type = "password" className="form-control" value = {inputPassword} onChange = {({target: {value}}) => setInputPassword(value)} required />
                 </div>
                 <div className="form-group">
-                    <p className="form-label">Don't have account yet? <a href = "/register" className="link">Register</a></p>
+                    <p className="form-label">Don't have account yet? <Link to = "/register" className="link">Register</Link></p>
                     <input type = "submit" className="form-control theme-adjust" value="Login" />
                 </div>
             </form>

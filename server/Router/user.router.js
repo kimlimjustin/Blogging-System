@@ -18,12 +18,7 @@ router.post('/get_by_token/', (req, res) => {
         User.findOne({token: req.body.token}, (err, user) => {
             if(err)res.status(500).json("Error: "+err);
             else if(!user) res.status(404).json("User not found.")
-            else{
-                user.token = generateToken();
-                user.save()
-                .then(() => res.json(user))
-                .catch(err => res.status(500).json("Error: "+err));
-            }
+            else res.json(user)
         })
     }
 })
