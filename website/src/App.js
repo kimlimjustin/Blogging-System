@@ -6,6 +6,7 @@ import Login from "./Components/login";
 import Logout from "./Components/logout";
 import Navbar from "./Components/navbar";
 import Register from "./Components/register";
+import Write from "./Components/write_post";
 
 const App = () => (
     <Router>
@@ -15,6 +16,7 @@ const App = () => (
             <Route path = "/login" component = {Login} />
             <Route path = "/register" component = {Register} />
             <Route path = "/logout" component = {Logout} />
+            <Route path = "/create" component = {Write} />
         </Switch>
     </Router>
 )

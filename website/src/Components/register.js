@@ -14,8 +14,6 @@ const Register = () => {
         const token = new Cookies().get('token');
         getUserByToken(token).then(res => {
             if(res && !res.status){
-                const token = new Cookies();
-                token.set('token', res.token, {path: '/', maxAge:604800 })
                 window.location = "/";
             }
         })

@@ -7,3 +7,12 @@
 .link:hover{
     opacity: .7;
 }
+
+.topnav-brand{
+    color: inherit;
+    text-decoration: none;
+}
+
+.mt-5{
+    margin-top: 2rem;
+}

@@ -16,15 +16,18 @@ const Navbar = () => {
     })
     return(
         <div className="topnav theme-reverse topnav-shadow">
-            <span className="topnav-brand">Blogging system</span>
+            <Link className="topnav-brand" to= "/">Blogging system</Link>
             <span className="topnav-hamburger-menu" data-target = "myTopnav">&#x2630;</span>
             {userInfo?
             <div className="topnav-right" id="myTopnav">
+                <Link className="topnav-item" to="/create">Write a post</Link>
                 <Link className="topnav-item" to="/logout">Logout</Link>
+                <span className="topnav-item" switch-theme="true">Switch theme</span>
             </div>
             :<div className="topnav-right" id="myTopnav">
                 <Link className="topnav-item" to="/login">Login</Link>
                 <Link className="topnav-item" to="/register">Register</Link>
+                <span className="topnav-item" switch-theme="true">Switch theme</span>
             </div>}
         </div>
     )

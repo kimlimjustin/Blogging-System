@@ -26,7 +26,7 @@ router.post('/create', jsonParser, (req, res) => {
         if(err) res.status(500).json("Something went wrong.")
         else if(!user) res.status(403).json("Permission denied.")
         else{
-            const newBlog = new Blog(title, blog, creator = user._id)
+            const newBlog = new Blog({title, blog, creator: user._id})
             newBlog.save()
             .then(() => res.json({message: "Success", id: newBlog._id}))
             .catch(err => res.status(500).json(err))
@@ -133,3 +133,5 @@ router.post('/comment', jsonParser, (req, res) => {
         }
     })
 })
+
+module.exports = router;
