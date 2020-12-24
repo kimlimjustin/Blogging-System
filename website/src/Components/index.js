@@ -1,3 +1,4 @@
+import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import getUserByToken from "../Lib/getUserByToken";
@@ -12,7 +13,11 @@ const Home = () => {
                 else setUserInfo(res)
             }
         })
-    })
+        Axios
+          .get(`${process.env.REACT_APP_SERVER_URL}/blogs/get/all`)
+          .then(res => console.log(res.data))
+          .catch(err => console.error(err));
+    }, [])
     return(
         <div className="container">Hello World</div>
     )
