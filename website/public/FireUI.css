@@ -606,7 +606,7 @@ body {
   font-family: "Noto"; }
 
 .textarea-auto-adjust {
-  overflow: hidden;
+  overflow: auto;
   min-height: 50px; }
 
 /* Form */

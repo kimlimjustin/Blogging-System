@@ -19,7 +19,9 @@ const Home = () => {
           .catch(err => console.error(err));
     }, [])
     return(
-        <div className="container">Hello World</div>
+        <div className="container">
+            
+        </div>
     )
 }
 

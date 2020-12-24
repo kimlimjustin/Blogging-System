@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import moment from "moment";
 import Cookies from "universal-cookie";
 import getUserByToken from "../Lib/getUserByToken";
+import { Link } from "react-router-dom";
 
 const Post = (params) => {
     const [post, setPost] = useState(null);
@@ -18,10 +19,6 @@ const Post = (params) => {
                 else setUserInfo(res)
             }
         })
-        Axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/blogs/get/all`)
-          .then(res => console.log(res.data))
-          .catch(err => console.error(err));
     }, [])
 
     useEffect(() => {
@@ -48,7 +45,7 @@ const Post = (params) => {
                 <p className="mb-5">posted by {creator.name} {moment(post.createdAt).fromNow()} 
                 {creator.token === new Cookies().get("token")?
                 <>
-                <button className="btn theme-reverse">Edit</button> 
+                <Link to = {`/post/${post._id}/edit`}><button className="btn theme-reverse">Edit</button></Link>
                 <button className="btn btn-danger" onClick = {() => deletePost()}>Delete</button>
                 </>:null}</p>
                 <ReactMarkdown>{post.blog}</ReactMarkdown>
