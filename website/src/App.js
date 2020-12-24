@@ -1,6 +1,7 @@
 import React from "react";
 
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Dashboard from "./Components/dashboard";
 import EditPost from "./Components/edit_post";
 import Home from "./Components/index";
 import Login from "./Components/login";
@@ -18,6 +19,7 @@ const App = () => (
             <Route path = "/login" component = {Login} />
             <Route path = "/register" component = {Register} />
             <Route path = "/logout" component = {Logout} />
+            <Route path = "/dashboard" component = {Dashboard} />
             <Route path = "/create" component = {Write} />
             <Route path = "/post/:postId/edit" component = {EditPost} />
             <Route path = "/post/:postId" component = {Post} />
