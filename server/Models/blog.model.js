@@ -12,12 +12,6 @@ const BlogSchema = new Schema({
         type: String,
         required: true,
     },
-    like: {
-        type: [{type: Schema.Types.ObjectId, ref: "User"}],
-    },
-    comment: {
-        type: [{commenter: {type: Schema.Types.ObjectId, ref: "User"}, comment: {type: String}}]
-    },
     creator:{
         type: Schema.Types.ObjectId,
         required: true

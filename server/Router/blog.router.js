@@ -14,7 +14,19 @@ router.get('/get/all', (req, res) => {
 router.get('/get/:id', (req, res) => {
     Blog.findOne({_id: req.params.id}, (err, blog) => {
         if(err || !blog) res.status(404).json("Blog not found.")
-        else res.json(blog)
+        else{
+            User.findOne({_id: blog.creator}, (err, creator) => {
+                if (err || !creator) res.status(500).json("Something went wrong")
+                else res.json({blog, creator})
+            })
+        }
+    })
+})
+
+router.get('/get_by_user/:user', (req, res) => {
+    Blog.find({creator: req.params.user}, (err, blogs) => {
+        if(err || !blogs) res.status(500).json("Something went wrong.")
+        else res.json(blogs)
     })
 })
 
