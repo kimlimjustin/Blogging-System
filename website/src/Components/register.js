@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Cookies from "universal-cookie";
 import getUserByToken from "../Lib/getUserByToken";
 
@@ -9,12 +9,13 @@ const Register = () => {
     const [inputPassword, setInputPassword] = useState('');
     const [inputEmail, setInputEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('')
+    const [toHome, setToHome] = useState(false);
 
     useEffect(() => {
         const token = new Cookies().get('token');
         getUserByToken(token).then(res => {
             if(res && !res.status){
-                window.location = "/";
+                setToHome(true)
             }
         })
     }, [])
@@ -29,13 +30,14 @@ const Register = () => {
         .then(res => {
             const token = new Cookies();
             token.set('token', res.data.token, {path: "/", maxAge: 604800})
-            window.location = "/";
+            setToHome(true)
         })
         .catch(err => {setErrorMessage(err.response.data.message); console.log(err.response)});
     }
 
     return(
         <div className="container">
+            {toHome? <Redirect to = "/" />: null}
             <form className="box box-shadow theme-reverse margin-top-bottom" onSubmit = {RegisterUser}>
                 <h1 className="box-title">Register</h1>
                 <p className="red-text"><b>{errorMessage}</b></p>

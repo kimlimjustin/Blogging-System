@@ -1,5 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import Cookies from "universal-cookie";
 import getUserByToken from "../Lib/getUserByToken";
 
@@ -7,13 +8,14 @@ const EditPost = (params) => {
     const [inputTitle, setInputTitle] = useState('');
     const [inputContent, setInputContent] = useState('');
     const [userInfo, setUserInfo] = useState('');
-    const [blog, setBlog] = useState(null)
+    const [blog, setBlog] = useState(null);
+    const [toHome, setToHome] = useState(false);
 
     useEffect(() => {
         const token = new Cookies().get('token');
         getUserByToken(token).then(res => {
             if(res && !res.status) setUserInfo(res)
-            else window.location = "/"
+            else window.location = setToHome(true)
         })
     }, [])
 
@@ -23,7 +25,7 @@ const EditPost = (params) => {
             setInputTitle(res.data.blog.title)
             setInputContent(res.data.blog.blog)
             setBlog(res.data.blog)
-            if(res.data.creator.token !== new Cookies().get('token')) window.location = "/"
+            if(res.data.creator.token !== new Cookies().get('token')) setToHome(true)
         })
     }, [params.match.params.postId])
 
@@ -35,6 +37,7 @@ const EditPost = (params) => {
     }
     return(
         <div className="container">
+            {toHome? <Redirect to = "/" />:null}
             <form className="box box-shadow mt-5 theme-reverse"  onSubmit = {Submit}>
             <h1 className="box-title">Edit post</h1>
                 <div className="form-group">

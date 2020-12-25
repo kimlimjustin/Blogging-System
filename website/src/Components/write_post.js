@@ -12,7 +12,7 @@ const Write = () => {
         const token = new Cookies().get('token');
         getUserByToken(token).then(res => {
             if(res && !res.status) setUserInfo(res)
-            else window.location = "/"
+            else window.location = "../"
         })
     }, [])
 
@@ -20,7 +20,7 @@ const Write = () => {
         e.preventDefault();
         const token = new Cookies().get('token');
         Axios.post(`${process.env.REACT_APP_SERVER_URL}/blogs/create`, {token, creator: userInfo.email, title: inputTitle, blog: inputContent})
-        .then(res => window.location = `/post/${res.data.id}`)
+        .then(res => window.location = `../post/${res.data.id}`)
         .catch(err => console.log(err))
     }
 

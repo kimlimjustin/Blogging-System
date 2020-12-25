@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Cookies from "universal-cookie";
 import getUserByToken from "../Lib/getUserByToken";
 
@@ -8,12 +8,13 @@ const Login = () => {
     const [inputEmail, setInputEmail] = useState('');
     const [inputPassword, setInputPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('')
-    
+    const [toHome, setToHome] = useState(false);
+
     useEffect(() => {
         const token = new Cookies().get('token');
         getUserByToken(token).then(res => {
             if(res && !res.status){
-                window.location = "/";
+                setToHome(true)
             }
         })
     }, [])
@@ -26,14 +27,15 @@ const Login = () => {
         })
         .then(res => {
             const token = new Cookies();
-            token.set('token', res.data.token, {path: "/", maxAge: 604800})
-            window.location = "/";
+            token.set('token', res.data.token, {path: "", maxAge: 604800})
+            setToHome(true)
         })
         .catch(() => setErrorMessage("Something went wrong. Please try again."))
     }
 
     return(
         <div className="container">
+            {toHome? <Redirect to = "/" />: null}
             <form className="box box-shadow theme-reverse margin-top-bottom" onSubmit = {LoginUser}>
                 <h1 className="box-title">Login</h1>
                 <p className="red-text"><b>{errorMessage}</b></p>

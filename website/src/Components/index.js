@@ -1,20 +1,10 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Cookies from "universal-cookie";
-import getUserByToken from "../Lib/getUserByToken";
 
 const Home = () => {
-    const [userInfo, setUserInfo] = useState(null);
     const [blogs, setBlogs]  = useState(null);
     useEffect(() => {
-        const token = new Cookies().get('token');
-        getUserByToken(token).then(res => {
-            if(res){
-                if(res.status) window.location = "/login";
-                else setUserInfo(res)
-            }
-        })
         Axios
           .get(`${process.env.REACT_APP_SERVER_URL}/blogs/get/all`)
           .then(res => setBlogs(res.data))

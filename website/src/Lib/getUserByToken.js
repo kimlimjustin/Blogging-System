@@ -12,4 +12,4 @@ const getUserByToken = async token => {
     }else return undefined;
 }
 
-module.exports = getUserByToken;
+export default getUserByToken
